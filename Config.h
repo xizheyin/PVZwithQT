@@ -8,7 +8,7 @@ const int Create_Zombie_Gap=300;
 
 
 //豌豆射手初始hp
-const int Hp_PeaShooter = 15;
+const int Hp_PeaShooter = 20;
 //太阳花初始hp
 const int Hp_SunFlower = 20;
 //坚果墙初始hp
@@ -20,7 +20,7 @@ const int Hp_IceShooter = 20;
 //高坚果
 const int Hp_HighNut = 240;
 //倭瓜
-const int Hp_Squash = 10;
+const int Hp_Squash = 20;
 //樱桃
 const int Hp_Cherry = 20;
 //大蒜
@@ -29,8 +29,22 @@ const int Hp_Garlic = 20;
 const int Hp_Pumpkin = 120;
 
 
+//普通僵尸基础生命
+const int Hp_NormalZombie = 10;
+//路障僵尸基础生命
+const int Hp_BarricadesZombie = 30;
+//读报僵尸基础生命
+const int Hp_PaperZombie = 20;
+//撑杆僵尸基础生命
+const int Hp_PolesZombie = 20;
+//小丑僵尸基础生命
+const int Hp_ClownZombie = 20;
+//投石僵尸基础生命
+const int Hp_CastZombie = 20;
+
+
 //豌豆射手攻击gap
-const int TIME_GAP_PEASHOOTER_ATTACK = 2000;
+const int PeaShooter_Atkgap = 2000;
 //产生阳光gap
 const int TIME_GAP_CREATESUN = 20;
 //双发射手
@@ -39,6 +53,12 @@ const int TIME_GAP_DOUBLESHOOTER_ATTACK = 4;
 const int TIME_GAP_ICESHOOTER_ATTACK = 4;
 
 
+const int NormalZombie_ATK=5;
+
+
+
+const int NormalBullet_Mvgap=80;
+const int NormalBullet_Speed=4;
 
 
 struct Location{
@@ -66,9 +86,9 @@ enum{
     CastZombie_t=13,
     ClownZombie_t=14,
     PaperZombie_t=15,
-    PolesZombie_t=16
+    PolesZombie_t=16,
 
-
+    Shop_t=30
 
 };
 
@@ -78,6 +98,10 @@ enum{
   car_t=2
 };
 
+
+int GetMoney(int ttype);
+int CurX(int x);
+int CurY(int y);
 
 
 #endif // CONFIG_H

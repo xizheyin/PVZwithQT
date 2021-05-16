@@ -7,6 +7,8 @@
 #include<QMediaPlayer>
 #include<QSound>
 #include"timectrl.h"
+#include"shop.h"
+#include"chessboard.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,7 +22,9 @@ private:
     QGraphicsScene* scene;
     QGraphicsView * view;
     QTimer* timer;
+    Shop* shop;
     TimeCtrl* timectrl;
     QSound* startSound;
+    ChessBoard* chessbd;
 };
 #endif // MAINWINDOW_H

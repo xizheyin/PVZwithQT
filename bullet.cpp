@@ -2,15 +2,16 @@
 #include "bullet.h"
 #include"object.h"
 #include"timectrl.h"
+#include"Config.h"
 
 Bullet::Bullet(int xx,int yy,int fun):Object(xx,yy)
 {
     func=fun;
     img = new QPixmap(":/resource/Pea.png");
     switch (fun) {
-    case normal_t:atk=10;
-    case ice_t:atk=10;
-    case car_t:atk=10000;
+    case normal_t:atk=1;break;
+    case ice_t:atk=1;break;
+    case car_t:atk=10000;break;
     }
 }
 
@@ -22,7 +23,7 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 
 bool Bullet::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
-    if(abs(x()-other->x())<30&&abs(y()-other->y())){
+    if(abs(x()-other->x())<30&&abs(y()-other->y())<30){
         return true;
     }
     else return false;
@@ -51,14 +52,20 @@ void Bullet::Attack(){
         Object* tmp =qgraphicsitem_cast<Object*> (list[i]);
         if (tmp->IsZombie()) {
             tmp->IsAttacked(atk);
-            tmp->IsAttacked(10000);
-            qDebug()<< "bullet hit enemy!";
+            this->IsAttacked(atk);
+            //tmp->IsAttacked(10000);
+            qDebug()<< "子弹攻击敌人!";
             return;
         }
     }
 }
 
 void Bullet::Move(){
-    if(t%20==0)
-        SetX(GetX()+1);
+    if(t%NormalBullet_Mvgap==0)
+        SetX(GetX()+NormalBullet_Speed);
+}
+
+void Bullet::CheckAndRemove(){
+    Object::CheckAndRemove();
+    if(y()>800)scene()->removeItem(this);
 }

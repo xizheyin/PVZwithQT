@@ -36,16 +36,14 @@ public:
     void SetDeadMovie(QString);//gif动画
     bool IsLive()const;//判断是不是还活着
     void ClearSelf();//把自己从scene里清除
-    void CheckAndRemove();//检查是不是死了，死了就清除自己
+    virtual void CheckAndRemove();//检查是不是死了，死了就清除自己
 
-    void IsAttacked(int atk){myhp-=atk;if(myhp<=0)mystate=0;}
+
+    bool PlayMovieEnd1(){return walkmovie->frameCount() - 1 == walkmovie->currentFrameNumber();}
+    bool PlayMovieEnd2(){return deadmovie->frameCount() - 1 == deadmovie->currentFrameNumber();}
+
+    virtual void IsAttacked(int atk){myhp-=atk;qDebug()<<"剩余"<<myhp;if(myhp<=0)mystate=0;}
 protected:
-    enum { Tyype = UserType + 1 };
-    int type() const override
-    {
-        // Enable the use of qgraphicsitem_cast with this item.
-        return Tyype;
-    }
     QMovie *walkmovie,*deadmovie;
     QString pth1,pth2;
     //我的生命值
@@ -61,19 +59,6 @@ protected:
 };
 
 
-class Test : public Object
-{
-    Q_OBJECT
-public:
-    Test(int xx,int yy,int hpmax,int ttype);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0)override;
-    bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
-    QRectF boundingRect() const override;
-    void advance(int phrase) override;
-protected:
-
-private:
-};
 
 
 

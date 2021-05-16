@@ -18,6 +18,7 @@ public:
     QRectF boundingRect() const;
     void Attack();
     void Move();
+    void CheckAndRemove();//检查是不是死了，死了就清除自己
 private:
     int func;
     QPixmap* img;

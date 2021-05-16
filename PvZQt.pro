@@ -15,21 +15,29 @@ MOC_DIR      = tmp
 SOURCES += \
     Config.cpp \
     bullet.cpp \
+    card.cpp \
+    chessboard.cpp \
     main.cpp \
     mainwindow.cpp \
     object.cpp \
     plant.cpp \
     shop.cpp \
-    timectrl.cpp
+    sun.cpp \
+    timectrl.cpp \
+    zombie.cpp
 
 HEADERS += \
     Config.h \
     bullet.h \
+    card.h \
+    chessboard.h \
     mainwindow.h \
     object.h \
     plant.h \
     shop.h \
-    timectrl.h
+    sun.h \
+    timectrl.h \
+    zombie.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

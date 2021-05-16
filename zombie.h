@@ -1,6 +1,5 @@
-#ifndef PLANT_H
-#define PLANT_H
-
+#ifndef ZOMBIE_H
+#define ZOMBIE_H
 
 #include<QPainter>
 #include<QStyleOptionGraphicsItem>
@@ -10,38 +9,40 @@
 #include"timectrl.h"
 
 
-class Plant : public Object
+class Zombie:public Object
 {
     Q_OBJECT
 public:
-    Plant(int xx,int yy,int hpmax,int ttype);
+    Zombie(int xx,int yy,int hpmax,int ttype);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0)override;
     bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
     QRectF boundingRect() const override;
+
+    void Move();
 protected:
-
+    bool isatking;
 private:
 };
 
 
-class PeaShooter : public Plant
+class NormalZombie:public Zombie
 {
     Q_OBJECT
 public:
-    PeaShooter(int xx,int yy);
-    void advance(int phase) override;
+    NormalZombie(int xx,int yy);
+    void advance(int phrase) override;
     void Attack(int t);
-private:
+    void CheckAndRemove()override;
 };
 
-class DoubleShooter : public Plant
+class BarricadesZombie:public Zombie
 {
     Q_OBJECT
 public:
-    DoubleShooter(int xx,int yy);
-    void advance(int phase) override;
+    BarricadesZombie(int xx,int yy);
+    void advance(int phrase) override;
     void Attack(int t);
-private:
+    void CheckAndRemove()override;
 };
 
 
@@ -49,4 +50,7 @@ private:
 
 
 
-#endif // PLANT_H
+
+
+
+#endif // ZOMBIE_H

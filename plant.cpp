@@ -4,17 +4,15 @@
 Plant::Plant(int xx,int yy,int hpmax,int ttype)
     :Object(xx,yy,hpmax,ttype)
 {
-    qDebug()<<"植物构造函数";
+
 }
 
 
 
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    //qDebug()<<"enter Paint ps";
 
     if(walkmovie!=nullptr){
-        //qDebug()<<"Paint ps";
         painter->drawImage(boundingRect(),walkmovie->currentImage());
     }
     if(deadmovie!=nullptr){
@@ -22,7 +20,7 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     }
 }
 bool Plant::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
-    return qFuzzyCompare(other->y(), y());
+    return other->y()== y()&&other->x()>x();
 }
 QRectF Plant::boundingRect() const{
     return QRectF(-35,-35,70,70);
@@ -32,35 +30,60 @@ QRectF Plant::boundingRect() const{
 PeaShooter::PeaShooter(int xx,int yy)
     :Plant(xx,yy,Hp_PeaShooter,PeaShooter_t)
 {
-    qDebug()<<"豌豆射手构造函数";
+    //qDebug()<<"豌豆射手构造函数";
 }
 
 void PeaShooter::advance(int phase){
-
-
-    //qDebug()<<"peashooter advance";
     if(phase==0){//预备更新
-        //qDebug()<<"peashooter advance0";
         CheckAndRemove();
         SetWalkMovie(":/resource/Peashooter.gif");
-        if(walkmovie!=nullptr)qDebug()<<x()<<" "<<y();
         Attack(t);
     }
-
-
-    this->QGraphicsItem::update();
+    else{
+        this->QGraphicsItem::update();
+    }
 }
 
 void PeaShooter::Attack(int t){
-    if(t%TIME_GAP_PEASHOOTER_ATTACK==0){
+    if(t%PeaShooter_Atkgap==0){
         QList<QGraphicsItem*> list=collidingItems();
         for(int i=0;i<list.size();i++){
             if(qgraphicsitem_cast<Object*>(list[i])->IsZombie()){
-                Bullet* blt=new Bullet(this->XX,this->YY,normal_t);
+                Bullet* blt=new Bullet(this->XX+22,this->YY-15,normal_t);
                 scene()->addItem(blt);
             }
         }
-        Bullet* blt=new Bullet(this->XX+22,this->YY-15,normal_t);
-        scene()->addItem(blt);
+
+    }
+}
+
+
+DoubleShooter::DoubleShooter(int xx,int yy)
+    :Plant(xx,yy,Hp_PeaShooter,PeaShooter_t)
+{
+}
+
+void DoubleShooter::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+        SetWalkMovie(":/resource/Repeater.gif");
+        Attack(t);
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+void DoubleShooter::Attack(int t){
+    if(t%PeaShooter_Atkgap==0){
+        QList<QGraphicsItem*> list=collidingItems();
+        for(int i=0;i<list.size();i++){
+            if(qgraphicsitem_cast<Object*>(list[i])->IsZombie()){
+                Bullet* blt=new Bullet(this->XX+22,this->YY-15,normal_t);
+                Bullet* blt2=new Bullet(this->XX+40,this->YY-15,normal_t);
+                scene()->addItem(blt);
+                scene()->addItem(blt2);
+            }
+        }
     }
 }
