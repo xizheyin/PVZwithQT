@@ -31,6 +31,7 @@ public:
     int GetType();
     bool IsPlant();
     bool IsZombie();
+    bool IsShop(){return mytype==Shop_t;}
 
     void SetWalkMovie(QString mvpth);//gif动画
     void SetDeadMovie(QString);//gif动画

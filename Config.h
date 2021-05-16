@@ -12,7 +12,7 @@ const int Hp_PeaShooter = 20;
 //太阳花初始hp
 const int Hp_SunFlower = 20;
 //坚果墙初始hp
-const int Hp_NutWall = 120;
+const int Hp_NutWall = 30;
 //双发射手初始hp
 const int HP_DoubleShooter = 20;
 //寒冰射手初始hp
@@ -46,7 +46,7 @@ const int Hp_CastZombie = 20;
 //豌豆射手攻击gap
 const int PeaShooter_Atkgap = 2000;
 //产生阳光gap
-const int TIME_GAP_CREATESUN = 20;
+const int SunFlower_Sungap = 5000;
 //双发射手
 const int TIME_GAP_DOUBLESHOOTER_ATTACK = 4;
 //寒冰射手
@@ -88,7 +88,9 @@ enum{
     PaperZombie_t=15,
     PolesZombie_t=16,
 
-    Shop_t=30
+    Shop_t=30,
+
+    Sun_t=40
 
 };
 

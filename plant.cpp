@@ -1,5 +1,7 @@
 #include "plant.h"
 #include"bullet.h"
+#include"sun.h"
+
 
 Plant::Plant(int xx,int yy,int hpmax,int ttype)
     :Object(xx,yy,hpmax,ttype)
@@ -87,3 +89,66 @@ void DoubleShooter::Attack(int t){
         }
     }
 }
+
+SunFlower::SunFlower(int xx,int yy)
+    :Plant(xx,yy,Hp_SunFlower,SunFlower_t)
+{
+}
+
+void SunFlower::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+        SetWalkMovie(":/resource/SunFlower.gif");
+        Attack(t);
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+//太阳花产生阳光
+void SunFlower::Attack(int t){
+    if(t%SunFlower_Sungap==0){
+        Sun* s=new Sun(x()+10,y()+20);
+        scene()->addItem(s);
+    }
+}
+
+
+NutWall::NutWall(int xx,int yy)
+    :Plant(xx,yy,Hp_NutWall,NutWall_t)
+{
+}
+
+void NutWall::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+void NutWall::CheckAndRemove(){
+    if(!IsLive()){
+        ClearSelf();
+    }
+    else{
+        //分别以2/3和1/3为分界，更换动画
+        qDebug()<<myhp<<" "<<myhpmax;
+        if(myhp>=(2*myhpmax/3)){
+            SetWalkMovie(":/resource/WallNut.gif");
+        }
+        else if(myhp<(2*myhpmax/3)&&myhp>=(myhpmax/3)){
+            SetWalkMovie(":/resource/WallNut1.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/WallNut2.gif");
+        }
+    }
+
+}
+
+
+
+

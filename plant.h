@@ -45,7 +45,26 @@ private:
 };
 
 
+class SunFlower : public Plant
+{
+    Q_OBJECT
+public:
+    SunFlower(int xx,int yy);
+    void advance(int phase) override;
+    void Attack(int t);
+private:
+};
 
+class NutWall : public Plant
+{
+    Q_OBJECT
+public:
+    NutWall(int xx,int yy);
+    void advance(int phase) override;
+    void Attack(int t);
+    void CheckAndRemove()override;
+private:
+};
 
 
 

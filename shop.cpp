@@ -50,10 +50,10 @@ void Shop::CreatePlant(int xx,int yy,int ttype){
     qDebug()<<"即将放置 : "<<ttype;
     cardlist[ttype-1]->Cold();
     switch (ttype) {
-    case PeaShooter_t:PeaShooter* p=new PeaShooter(xx,yy);scene()->addItem(p);sun-=GetMoney(ttype); break;
-    /*case SunFlower_t:;
-    case NutWall_t:;
-    case HighNut_t:;
+    case PeaShooter_t:CreatePeaShooter(xx,yy);break;
+    case SunFlower_t:CreateSunFlower(xx,yy);break;
+    case NutWall_t:CreateNutWall(xx,yy);break;
+    /*case HighNut_t:;
     case DoubleShooter_t:;
     case IceShooter_t:;
     case Squash_t:;
