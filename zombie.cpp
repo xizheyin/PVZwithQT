@@ -11,6 +11,10 @@ Zombie::Zombie(int xx,int yy,int hpmax,int ttype)
 {
     //qDebug()<<"僵尸构造函数";
     isatking=false;
+    burned=false;
+    iced=false;
+    speed=2;
+    setZValue(10);
 }
 
 
@@ -30,14 +34,16 @@ bool Zombie::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode 
     return other->y()==y()&&abs(x()-other->x())<20;
 }
 QRectF Zombie::boundingRect() const{
-    return QRectF(-60,-60,120,120);
+    return QRectF(-50,-50,100,100);
 }
 
 
 void Zombie::Move(){
+    if(!IsLive())return;
+    qDebug()<<"移动，速度"<<speed;
     if(t%100==0){
         if(!isatking)
-            SetX(GetX() - 2);
+            SetX(GetX() - speed);
     }
 }
 
@@ -63,6 +69,7 @@ void NormalZombie::advance(int phase) {
     }
 }
 void NormalZombie::Attack(int t){
+    if(!IsLive())return;
     int flag=0;
     QList<QGraphicsItem*> list=collidingItems();
     Object* tmp=nullptr;
@@ -82,8 +89,13 @@ void NormalZombie::Attack(int t){
 
 void NormalZombie::CheckAndRemove(){
     if(!IsLive()){
-        SetWalkMovie(":/resource/ZombieDie.gif");
-        SetDeadMovie(":/resource/ZombieHead.gif");
+        if(burned){
+            SetWalkMovie(":/resource/Burn.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/ZombieDie.gif");
+            SetDeadMovie(":/resource/ZombieHead.gif");
+        }
         if(PlayMovieEnd1()){
             qDebug()<<"死掉了";
             ClearSelf();
@@ -114,6 +126,7 @@ void BarricadesZombie::advance(int phase) {
     }
 }
 void BarricadesZombie::Attack(int t){
+    if(!IsLive())return;
     int flag=0;
     QList<QGraphicsItem*> list=collidingItems();
     Object* tmp=nullptr;
@@ -133,8 +146,13 @@ void BarricadesZombie::Attack(int t){
 
 void BarricadesZombie::CheckAndRemove(){
     if(!IsLive()){
-        SetWalkMovie(":/resource/ZombieDie.gif");
-        SetDeadMovie(":/resource/ZombieHead.gif");
+        if(burned){
+            SetWalkMovie(":/resource/Burn.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/ZombieDie.gif");
+            SetDeadMovie(":/resource/ZombieHead.gif");
+        }
         if(PlayMovieEnd1()){
             ClearSelf();
         }

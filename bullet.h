@@ -21,6 +21,7 @@ public:
     void CheckAndRemove();//检查是不是死了，死了就清除自己
 private:
     int func;
+    int ice;
     QPixmap* img;
 };
 

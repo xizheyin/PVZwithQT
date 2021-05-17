@@ -51,6 +51,8 @@ const int SunFlower_Sungap = 5000;
 const int TIME_GAP_DOUBLESHOOTER_ATTACK = 4;
 //寒冰射手
 const int TIME_GAP_ICESHOOTER_ATTACK = 4;
+//Cherry的攻击倒计时
+const int Cherry_ColdTime = 5000;
 
 
 const int NormalZombie_ATK=5;
@@ -70,14 +72,14 @@ struct Location{
 
 
 enum{
-    None=0,
+    None_t=0,
     PeaShooter_t=1,
     SunFlower_t=2,
     NutWall_t=3,
     HighNut_t=4,
     DoubleShooter_t=5,
     IceShooter_t=6,
-    Squash_t=7,
+    Potato_t=7,
     Cherry_t=8,
     Garlic_t=9,
     Pumpkin_t=10,

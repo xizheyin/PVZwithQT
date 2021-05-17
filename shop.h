@@ -22,6 +22,10 @@ private:
     void CreateSunFlower(int xx,int yy){SunFlower* p2=new SunFlower(xx,yy);scene()->addItem(p2);sun-=GetMoney(SunFlower_t); }
     void CreateNutWall(int xx,int yy){NutWall* p=new NutWall(xx,yy);scene()->addItem(p);sun-=GetMoney(NutWall_t); }
 
+    void CreateDoubleShooter(int xx,int yy){DoubleShooter* p=new DoubleShooter(xx,yy);scene()->addItem(p);sun-=GetMoney(DoubleShooter_t); }
+    void CreateIceShooter(int xx,int yy){IceShooter* p=new IceShooter(xx,yy);scene()->addItem(p);sun-=GetMoney(IceShooter_t); }
+    void CreatePotato(int xx,int yy){Potato* p=new Potato(xx,yy);scene()->addItem(p);sun-=GetMoney(Potato_t); }
+    void CreateCherry(int xx,int yy){Cherry* p=new Cherry(xx,yy);scene()->addItem(p);sun-=GetMoney(Cherry_t); }
     QPixmap* img;
     QList<Card*> cardlist;
     int sun;

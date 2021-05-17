@@ -1,6 +1,7 @@
 #include<QPainter>
 #include "bullet.h"
 #include"object.h"
+#include"zombie.h"
 #include"timectrl.h"
 #include"Config.h"
 
@@ -8,9 +9,10 @@ Bullet::Bullet(int xx,int yy,int fun):Object(xx,yy)
 {
     func=fun;
     img = new QPixmap(":/resource/Pea.png");
+    ice=false;
     switch (fun) {
     case normal_t:atk=1;break;
-    case ice_t:atk=1;break;
+    case ice_t:atk=1;ice=true;delete img;img=new QPixmap(":/resource/PeaSnow.png");break;
     case car_t:atk=10000;break;
     }
 }
@@ -54,6 +56,10 @@ void Bullet::Attack(){
             tmp->IsAttacked(atk);
             this->IsAttacked(atk);
             //tmp->IsAttacked(10000);
+            if(func==ice_t){
+                qDebug()<< "冻住!";
+                static_cast<Zombie*>(tmp)->Ice();
+            }
             qDebug()<< "子弹攻击敌人!";
             return;
         }

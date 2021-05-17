@@ -11,7 +11,7 @@ int GetMoney(int ttype){
     case HighNut_t:return 100;
     case DoubleShooter_t:return 100;
     case IceShooter_t:return 100;
-    case Squash_t:return 100;
+    case Potato_t:return 100;
     case Cherry_t:return 100;
     case Garlic_t:return 100;
     case Pumpkin_t:return 100;

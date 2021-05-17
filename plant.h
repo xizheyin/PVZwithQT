@@ -66,6 +66,53 @@ public:
 private:
 };
 
+class Cherry : public Plant
+{
+    Q_OBJECT
+public:
+    Cherry(int xx,int yy);
+    void advance(int phase) override;
+    void Attack(int t);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0)override;
+    QRectF boundingRect() const override;
+    bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
+    void CheckAndRemove()override;
+private:
+};
+
+
+class Potato : public Plant
+{
+    Q_OBJECT
+public:
+    Potato(int xx,int yy);
+    void advance(int phase) override;
+    void Attack(int t);
+    QRectF boundingRect() const override;
+    bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
+    void CheckAndRemove()override;
+private:
+    int coldtime;
+};
+
+
+class IceShooter : public Plant
+{
+    Q_OBJECT
+public:
+    IceShooter(int xx,int yy);
+    void advance(int phase) override;
+    void Attack(int t);
+private:
+};
+
+
+
+
+
+
+
+
 
 
 #endif // PLANT_H

@@ -49,19 +49,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     //宽80 高100
     //DoubleShooter* a=new DoubleShooter(290,120);
-    PeaShooter* a=new PeaShooter(650,130);
-    PeaShooter* b=new PeaShooter(290,230);
-    PeaShooter* c=new PeaShooter(380,230);
-    PeaShooter* d=new PeaShooter(290,430);
-    PeaShooter* e=new PeaShooter(290,530);
+    //PeaShooter* a=new PeaShooter(650,130);
+    //PeaShooter* b=new PeaShooter(290,230);
+    //PeaShooter* c=new PeaShooter(380,230);
+    //PeaShooter* d=new PeaShooter(290,430);
+    //PeaShooter* e=new PeaShooter(290,530);
 
     //NormalZombie* z=new NormalZombie(700,120);
     BarricadesZombie* z=new BarricadesZombie(750,130);
-    scene->addItem(a);
-    scene->addItem(b);
-    scene->addItem(c);
-    scene->addItem(d);
-    scene->addItem(e);
+    //scene->addItem(a);
+    //scene->addItem(b);
+    //scene->addItem(c);
+    //scene->addItem(d);
+    //scene->addItem(e);
     scene->addItem(z);
     //scene->addItem(ts);
 
