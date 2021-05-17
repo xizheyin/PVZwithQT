@@ -15,7 +15,7 @@ public:
     void advance(int phase) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override{}
-    void Cold(){coldtime=5000;}
+    void Cold(){coldtime=2000;}
 private:
     QString imgpth;
     int coldtime;

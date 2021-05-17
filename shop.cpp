@@ -16,13 +16,13 @@ Shop::~Shop()
 
 QRectF Shop::boundingRect() const
 {
-    return QRectF(-200, -30, 400, 60);
+    return QRectF(-200, -30, 500, 60);
 }
 
 void Shop::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    if (img!=nullptr) painter->drawPixmap(QRect(-270, -45, 540, 90), *img);
+    if (img!=nullptr) painter->drawPixmap(QRect(-270, -45, 640, 90), *img);
     QFont font;
     font.setPointSizeF(10);
     painter->setFont(font);
@@ -40,12 +40,13 @@ void Shop::CreateCard(){
     Card* c1=new Card(450,30,":/resource/Peashooter.png",PeaShooter_t);
     Card* c2=new Card(500,30,":/resource/SunFlower.png",SunFlower_t);
     Card* c3=new Card(550,30,":/resource/WallNut.png",NutWall_t);
-    Card* c4=new Card(600,30,"",None_t);
+    Card* c4=new Card(600,30,":/resource/Tallnut.png",HighNut_t);
     Card* c5=new Card(650,30,":/resource/Repeater.png",DoubleShooter_t);
     Card* c6=new Card(700,30,":/resource/SnowPea.png",IceShooter_t);
     Card* c7=new Card(750,30,":/resource/PotatoMine.png",Potato_t);
     Card* c8=new Card(800,30,":/resource/CherryBomb.png",Cherry_t);
-
+    Card* c9=new Card(850,30,":/resource/Garlic.png",Garlic_t);
+    Card* c10=new Card(900,30,":/resource/Pumpkin.png",Pumpkin_t);
     scene()->addItem(c1);cardlist.append(c1);
     scene()->addItem(c2);cardlist.append(c2);
     scene()->addItem(c3);cardlist.append(c3);
@@ -54,6 +55,8 @@ void Shop::CreateCard(){
     scene()->addItem(c6);cardlist.append(c6);
     scene()->addItem(c7);cardlist.append(c7);
     scene()->addItem(c8);cardlist.append(c8);
+    scene()->addItem(c9);cardlist.append(c9);
+    scene()->addItem(c10);cardlist.append(c10);
 }
 
 void Shop::CreatePlant(int xx,int yy,int ttype){
@@ -64,18 +67,14 @@ void Shop::CreatePlant(int xx,int yy,int ttype){
     case PeaShooter_t:CreatePeaShooter(xx,yy);break;
     case SunFlower_t:CreateSunFlower(xx,yy);break;
     case NutWall_t:CreateNutWall(xx,yy);break;
-
+    case HighNut_t:CreateHighNut(xx,yy);break;
     case DoubleShooter_t:CreateDoubleShooter(xx,yy);break;
     case IceShooter_t:CreateIceShooter(xx,yy);break;
     case Potato_t:CreatePotato(xx,yy);break;
     case Cherry_t:CreateCherry(xx,yy);break;
-    /*case HighNut_t:;
-    case DoubleShooter_t:;
-    case IceShooter_t:;
-    case Squash_t:;
-    case Cherry_t:;
-    case Garlic_t:;
-    case Pumpkin_t:;*/
+    case Garlic_t:CreateGarlic(xx,yy);break;
+    case Pumpkin_t:CreatePumpkin(xx,yy);break;
+    default:break;
     }
     return;
 }

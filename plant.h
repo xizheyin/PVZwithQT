@@ -78,6 +78,7 @@ public:
     bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
     void CheckAndRemove()override;
 private:
+    int inittime;
 };
 
 
@@ -106,6 +107,40 @@ public:
 private:
 };
 
+class HighNut : public Plant
+{
+    Q_OBJECT
+public:
+    HighNut(int xx,int yy);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0);
+    void advance(int phase) override;
+
+    void CheckAndRemove()override;
+private:
+};
+
+
+class Garlic : public Plant
+{
+    Q_OBJECT
+public:
+    Garlic(int xx,int yy);
+    void advance(int phase) override;
+    void CheckAndRemove()override;
+private:
+};
+
+class Pumpkin : public Plant
+{
+    Q_OBJECT
+public:
+    Pumpkin(int xx,int yy);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0)override;
+    void advance(int phase) override;
+    void CheckAndRemove()override;
+    QRectF boundingRect() const override;
+private:
+};
 
 
 

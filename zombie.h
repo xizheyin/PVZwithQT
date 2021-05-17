@@ -20,11 +20,20 @@ public:
     bool Burn(){burned=true;}
     void Move();
     void Ice(){if(!iced){iced=true;speed=1;}}
+    int CheckRow(){
+        if(y()==130)return 100;
+        else if(y()==530)return -100;
+        else if(t%2==0)return 100;
+        else return -100;
+    }
 protected:
     bool isatking;
     bool burned;
     int speed;
     bool iced;
+    //是否改路
+    int change;
+    int step;
 private:
 };
 
@@ -34,7 +43,7 @@ class NormalZombie:public Zombie
     Q_OBJECT
 public:
     NormalZombie(int xx,int yy);
-    void advance(int phrase) override;
+    void advance(int phase) override;
     void Attack(int t);
     void CheckAndRemove()override;
 };
@@ -44,13 +53,25 @@ class BarricadesZombie:public Zombie
     Q_OBJECT
 public:
     BarricadesZombie(int xx,int yy);
-    void advance(int phrase) override;
+    void advance(int phase) override;
     void Attack(int t);
     void CheckAndRemove()override;
+
 };
 
 
 
+class PaperZombie:public Zombie
+{
+    Q_OBJECT
+public:
+    PaperZombie(int xx,int yy);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0)override;
+    void advance(int phase) override;
+    void Attack(int t);
+    void CheckAndRemove()override;
+
+};
 
 
 

@@ -27,3 +27,9 @@ int CurY(int y){
     int n=(y-130)/100;
     return n*100+130;
 }
+
+int generateRandomNumber()
+{
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    return qrand();
+}

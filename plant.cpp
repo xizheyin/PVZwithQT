@@ -151,6 +151,7 @@ void NutWall::CheckAndRemove(){
 
 Cherry::Cherry(int xx,int yy):Plant(xx,yy,Hp_Cherry,Cherry_t)
 {
+    inittime=t;
     qDebug()<<"樱桃构造函数";
 }
 void Cherry::advance(int phase){
@@ -163,7 +164,7 @@ void Cherry::advance(int phase){
     }
 }
 void Cherry::Attack(int t){
-    if(t%Cherry_ColdTime!=0)return;
+    if((t-inittime)%Cherry_ColdTime!=0)return;
     QList<QGraphicsItem*> list=collidingItems();
     Object* tmp=nullptr;
     for(int i=0;i<list.size();i++){
@@ -239,7 +240,7 @@ QRectF Potato::boundingRect() const{
     return QRectF(-30,-30,60,60);
 }
 bool Potato::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const {
-    return y()==other->y()&&abs(x()-other->x())<30;
+    return y()==other->y()&&abs(x()-other->x())<45;
 }
 
 void Potato::CheckAndRemove(){
@@ -291,3 +292,121 @@ void IceShooter::Attack(int t){
 }
 
 
+HighNut::HighNut(int xx,int yy)
+    :Plant(xx,yy,Hp_HighNut,HighNut_t)
+{
+}
+
+
+void HighNut::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->scale(1, 1.3);
+    Plant::paint(painter,option,widget);
+}
+
+void HighNut::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+void HighNut::CheckAndRemove(){
+    if(!IsLive()){
+        ClearSelf();
+    }
+    else{
+        //分别以2/3和1/3为分界，更换动画
+        qDebug()<<myhp<<" "<<myhpmax;
+        if(myhp>=(2*myhpmax/3)){
+            SetWalkMovie(":/resource/Tallnut2.gif");
+        }
+        else if(myhp<(2*myhpmax/3)&&myhp>=(myhpmax/3)){
+            SetWalkMovie(":/resource/Tallnut1.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/Tallnut3.gif");
+        }
+    }
+
+}
+
+
+Garlic::Garlic(int xx,int yy)
+    :Plant(xx,yy,Hp_Garlic,Garlic_t)
+{
+}
+
+
+void Garlic::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+void Garlic::CheckAndRemove(){
+    if(!IsLive()){
+        ClearSelf();
+    }
+    else{
+        //分别以2/3和1/3为分界，更换动画
+        qDebug()<<myhp<<" "<<myhpmax;
+        if(myhp>=(2*myhpmax/3)){
+            SetWalkMovie(":/resource/Garlic.gif");
+        }
+        else if(myhp<(2*myhpmax/3)&&myhp>=(myhpmax/3)){
+            SetWalkMovie(":/resource/Garlic_body2.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/Garlic_body3.gif");
+        }
+    }
+}
+
+Pumpkin::Pumpkin(int xx,int yy)
+    :Plant(xx,yy,Hp_Pumpkin,Pumpkin_t)
+{
+    setZValue(8);
+}
+
+void Pumpkin::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->scale(1, 0.7);
+    Plant::paint(painter,option,widget);
+}
+
+
+void Pumpkin::advance(int phase){
+    if(phase==0){//预备更新
+        CheckAndRemove();
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+
+void Pumpkin::CheckAndRemove(){
+    if(!IsLive()){
+        ClearSelf();
+    }
+    else{
+        //分别以2/3和1/3为分界，更换动画
+        qDebug()<<myhp<<" "<<myhpmax;
+        if(myhp>=(2*myhpmax/3)){
+            SetWalkMovie(":/resource/Pumpkin.gif");
+        }
+        else if(myhp<(2*myhpmax/3)&&myhp>=(myhpmax/3)){
+            SetWalkMovie(":/resource/pumpkin1.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/Pumpkin2.gif");
+        }
+    }
+}
+
+QRectF Pumpkin::boundingRect() const {
+    return QRectF(-35,-20,70,75);
+}

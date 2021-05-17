@@ -1,10 +1,12 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+#include <QtGlobal>
 #include<QDebug>
+#include<QTime>
 const int Window_Height=600;
 const int Window_Width=950;
 
-const int Create_Zombie_Gap=300;
+const int Create_Zombie_Gap=5000;
 
 
 //豌豆射手初始hp
@@ -46,21 +48,21 @@ const int Hp_CastZombie = 20;
 //豌豆射手攻击gap
 const int PeaShooter_Atkgap = 2000;
 //产生阳光gap
-const int SunFlower_Sungap = 5000;
+const int SunFlower_Sungap = 20000;
 //双发射手
 const int TIME_GAP_DOUBLESHOOTER_ATTACK = 4;
 //寒冰射手
 const int TIME_GAP_ICESHOOTER_ATTACK = 4;
 //Cherry的攻击倒计时
-const int Cherry_ColdTime = 5000;
+const int Cherry_ColdTime = 3000;
 
 
 const int NormalZombie_ATK=5;
 
 
 
-const int NormalBullet_Mvgap=80;
-const int NormalBullet_Speed=4;
+const int NormalBullet_Mvgap=40;
+const int NormalBullet_Speed=6;
 
 
 struct Location{
@@ -85,9 +87,10 @@ enum{
     Pumpkin_t=10,
     NormalZombie_t=11,
     BarricadesZombie_t=12,
-    CastZombie_t=13,
-    ClownZombie_t=14,
-    PaperZombie_t=15,
+    PaperZombie_t=13,
+    CastZombie_t=14,
+    ClownZombie_t=15,
+
     PolesZombie_t=16,
 
     Shop_t=30,
@@ -106,6 +109,7 @@ enum{
 int GetMoney(int ttype);
 int CurX(int x);
 int CurY(int y);
+int generateRandomNumber();
 
 
 #endif // CONFIG_H

@@ -7,7 +7,7 @@ Card::Card(int xx,int yy,QString pth,int tt)
 {
     ttype=tt;
     imgpth=pth;
-    coldtime=5000;
+    coldtime=2000;
     setPos(xx,yy);
 }
 
@@ -28,7 +28,7 @@ void Card::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     if (coldtime>0){
         QBrush brush(QColor(0, 0, 0, 200));
         painter->setBrush(brush);
-        painter->drawRect(QRectF(-25, -40, 50, 80 * (coldtime /5000.0)));
+        painter->drawRect(QRectF(-25, -40, 50, 80 * (coldtime /2000.0)));
     }
 }
 

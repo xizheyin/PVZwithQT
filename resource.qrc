@@ -68,5 +68,13 @@
         <file>resource/ZombieWalk2.gif</file>
         <file>resource/Grazy Dave.wav</file>
         <file>resource/GrazyDave.mp3</file>
+        <file>resource/Garlic.gif</file>
+        <file>resource/Garlic.png</file>
+        <file>resource/Garlic_body2.gif</file>
+        <file>resource/Garlic_body3.gif</file>
+        <file>resource/Tallnut1.gif</file>
+        <file>resource/Tallnut2.gif</file>
+        <file>resource/Tallnut3.gif</file>
+        <file>resource/Tallnut.png</file>
     </qresource>
 </RCC>

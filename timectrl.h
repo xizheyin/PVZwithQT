@@ -15,8 +15,15 @@ public:
     TimeCtrl(QGraphicsScene* sc,QTimer* tm);
     void Update();
     void Check();
-
+    void CreateZombies();
+    void CreateZombie(int yy,int ttype);
 private:
+    void CreateNormalZombie(int yy);
+    void CreateBarricadesZombie(int yy);
+    void CreateClownZombie(int yy);
+    void CreatePaperZombie(int yy);
+    void CreatePolesZombie(int yy);
+
     long long int time;
     QGraphicsScene* scene;
     QTimer* timer;

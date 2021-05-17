@@ -27,8 +27,8 @@ public:
     int GetY()const{return YY;}
     Location GetLoc()const{return Location(XX,YY);}
 
-    int SetType();
-    int GetType();
+    void SetType(int tt){mytype=tt;}
+    int GetType(){return mytype;}
     bool IsPlant();
     bool IsZombie();
     bool IsShop(){return mytype==Shop_t;}

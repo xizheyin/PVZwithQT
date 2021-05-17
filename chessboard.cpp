@@ -4,6 +4,7 @@
 
 ChessBoard::ChessBoard(int xx,int yy):Object(xx,yy)
 {
+    qDebug()<<"棋盘构造函数";
     shop=nullptr;
     setAcceptDrops(true);
 }
@@ -20,26 +21,16 @@ void ChessBoard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 
 void ChessBoard::advance(int phase){
-    //if(phase==1)update();
 }
 
 
 void ChessBoard::dragEnterEvent(QGraphicsSceneDragDropEvent *event) {
-    qDebug()<<"拖动事件进入";
-    if(event->mimeData()!=nullptr){
-        qDebug()<<"接受";
-        event->accept();
-    }
-    else {
-        qDebug()<<"忽略";
-        event->ignore();
-    }
+    if(event->mimeData()!=nullptr)event->accept();
+    else event->ignore();
 }
 
 void ChessBoard::dragMoveEvent(QGraphicsSceneDragDropEvent *event) {
-    qDebug()<<"接受拖动";
     event->accept();
-
 }
 
 
@@ -56,7 +47,7 @@ void ChessBoard::dropEvent(QGraphicsSceneDragDropEvent *event) {
     QList<QGraphicsItem*> list = scene()->items(QPoint(curx, cury));
     for(int i=0;i<list.size();i++){
         Object* obj=qgraphicsitem_cast<Object*>(list[i]);
-        if(obj->IsPlant()){
+        if(obj->IsPlant()&&obj->GetType()!=Pumpkin_t){
             //看看是不是南瓜头
             canput=false;
         }

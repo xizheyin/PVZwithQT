@@ -7,6 +7,7 @@
 
 Bullet::Bullet(int xx,int yy,int fun):Object(xx,yy)
 {
+    setZValue(15);
     func=fun;
     img = new QPixmap(":/resource/Pea.png");
     ice=false;
