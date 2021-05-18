@@ -76,5 +76,22 @@
         <file>resource/Tallnut2.gif</file>
         <file>resource/Tallnut3.gif</file>
         <file>resource/Tallnut.png</file>
+        <file>resource/0.gif</file>
+        <file>resource/1.gif</file>
+        <file>resource/Attack.gif</file>
+        <file>resource/Die.gif</file>
+        <file>resource/GoOut.gif</file>
+        <file>resource/LostHead.gif</file>
+        <file>resource/LostHeadAttack.gif</file>
+        <file>resource/OpenBox.gif</file>
+        <file>resource/Walk.gif</file>
+        <file>resource/baozha.gif</file>
+        <file>resource/car1.gif</file>
+        <file>resource/car2.gif</file>
+        <file>resource/car3.gif</file>
+        <file>resource/carBoomDie.gif</file>
+        <file>resource/cardie.gif</file>
+        <file>resource/ice.png</file>
+        <file>resource/ice_cap.png</file>
     </qresource>
 </RCC>

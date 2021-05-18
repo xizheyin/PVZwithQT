@@ -52,35 +52,43 @@ void TimeCtrl::Check(){
 
 void TimeCtrl::CreateZombies(){
     int randnum=generateRandomNumber()%5;
-    int rn1=(generateRandomNumber())%3;//根据僵尸的增加要修改！！！！！！！！！！！！！！！！！！！！！！！！！
+    int rn1=(generateRandomNumber())%6;//根据僵尸的增加要修改！！！！！！！！！！！！！！！！！！！！！！！！！
     CreateZombie(130+randnum*100,rn1+11);
+    //CreateZombie(130+randnum*100,5+11);
 }
 
 void TimeCtrl::CreateZombie(int yy,int ttype){
     switch(ttype){
     case NormalZombie_t:CreateNormalZombie(yy);break;
     case BarricadesZombie_t:CreateBarricadesZombie(yy);break;
-    //case CastZombie_t:break;
-    //case ClownZombie_t:break;
     case PaperZombie_t:CreatePaperZombie(yy);break;
-    //case PolesZombie_t:break;
+    case PolesZombie_t:CreatePolesZombie(yy);break;
+    case ClownZombie_t:CreateClownZombie(yy);break;
+    case CastZombie_t:CreateCastZombie(yy);break;
     }
 }
 void TimeCtrl::CreateNormalZombie(int yy){
-    NormalZombie* zmb=new NormalZombie(1000,yy);
+    NormalZombie* zmb=new NormalZombie(1200,yy);
     scene->addItem(zmb);
 }
 void TimeCtrl::CreateBarricadesZombie(int yy){
-    BarricadesZombie* zmb=new BarricadesZombie(1000,yy);
+    BarricadesZombie* zmb=new BarricadesZombie(1200,yy);
     scene->addItem(zmb);
 }
 void TimeCtrl::CreateClownZombie(int yy){
-
+    ClownZombie* zmb=new ClownZombie(1200,yy);
+    scene->addItem(zmb);
 }
 void TimeCtrl::CreatePaperZombie(int yy){
-    PaperZombie* zmb=new PaperZombie(1000,yy);
+    PaperZombie* zmb=new PaperZombie(1200,yy);
     scene->addItem(zmb);
 }
 void TimeCtrl::CreatePolesZombie(int yy){
+    PolesZombie* zmb=new PolesZombie(1200,yy);
+    scene->addItem(zmb);
+}
 
+void TimeCtrl::CreateCastZombie(int yy){
+    CastZombie* zmb=new CastZombie(1200,yy);
+    scene->addItem(zmb);
 }

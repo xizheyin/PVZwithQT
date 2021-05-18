@@ -28,7 +28,7 @@ void Zombie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     }
 }
 bool Zombie::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
-    return other->y()==y()&&abs(x()-other->x())<40;
+    return other->y()==y()&&abs(x()-other->x()-other->boundingRect().right())<10;
 }
 QRectF Zombie::boundingRect() const{
     return QRectF(-50,-50,100,100);
@@ -246,5 +246,270 @@ void PaperZombie::CheckAndRemove(){
         }
     }
 }
+
+PolesZombie::PolesZombie(int xx,int yy)
+    :Zombie(xx,yy,Hp_PolesZombie,PolesZombie_t)
+{
+    atk=NormalZombie_ATK;
+    jmp=0;
+    j1=false;
+}
+
+void PolesZombie::Move(){
+    if(jmp==1){//跳了第一次
+        if(PlayMovieEnd1()){
+            SetX(GetX() - speed);
+            jmp=2;
+            return;
+        }
+        else if(!PlayMovieEnd1()) return;
+    }
+    else if(jmp==2){
+        if(PlayMovieEnd1()){
+            jmp=3;
+            speed=2;
+        }
+        else return;
+    }
+
+    if(jmp==0){//还没跳过
+        QList<QGraphicsItem*> list=collidingItems();
+        Object* tmp=nullptr;
+        for(int i=0;i<list.size();i++){
+            tmp=qgraphicsitem_cast<Object*>(list[i]);
+            if(tmp->IsPlant()&&tmp->GetType()!=HighNut_t){//如果是植物的话就跳过它
+                jmp=1;
+                speed=90;
+                return;
+            }
+        }
+    }
+    Zombie::Move();
+}
+
+void PolesZombie::advance(int phase) {
+    if(phase==0){//预备更新
+        CheckAndRemove();
+        Move();
+        Attack(t);
+
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+void PolesZombie::Attack(int t){
+    if(!IsLive())return;
+    int flag=0;
+    QList<QGraphicsItem*> list=collidingItems();
+    Object* tmp=nullptr;
+    for(int i=0;i<list.size();i++){
+        tmp=qgraphicsitem_cast<Object*>(list[i]);
+        if(tmp->IsPlant()){//如果是植物的话就攻击它
+            flag=1;
+            if(change==0&&tmp->GetType()==Garlic_t){change=CheckRow();return;}
+            break;
+        }
+    }
+    if(flag==1)isatking=true;
+    else isatking=false;
+    if(t%2000==0&&isatking){
+        tmp->IsAttacked(atk);
+    }
+}
+
+void PolesZombie::CheckAndRemove(){
+    if(!IsLive()){
+        if(burned){
+            SetWalkMovie(":/resource/Burn.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/PoleVaultingZombieDie.gif");
+            SetDeadMovie(":/resource/PoleVaultingZombieHead.gif");
+        }
+        if(PlayMovieEnd1()){
+            ClearSelf();
+        }
+    }
+    else{
+        if(jmp==3){
+            if(!isatking)SetWalkMovie(":/resource/PoleVaultingZombieWalk.gif");
+            else SetWalkMovie(":/resource/PoleVaultingZombieAttack.gif");
+        }
+        else if(jmp==1){
+            SetWalkMovie(":/resource/PoleVaultingZombieJump.gif");
+        }
+        else if(jmp==2){
+            SetWalkMovie(":/resource/PoleVaultingZombieJump2.gif");
+        }
+        else SetWalkMovie(":/resource/PoleVaultingZombie.gif");
+
+    }
+}
+
+void PolesZombie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->scale(1.3, 1.3);
+    Zombie::paint(painter,option,widget);
+}
+
+
+
+
+ClownZombie::ClownZombie(int xx,int yy)
+    :Zombie(xx,yy,Hp_PolesZombie,PolesZombie_t)
+{
+    atk=NormalZombie_ATK;
+    qDebug()<<"小丑僵尸";
+}
+
+
+
+void ClownZombie::advance(int phase) {
+    if(phase==0){//预备更新
+        CheckAndRemove();
+        Move();
+        Attack(t);
+
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+void ClownZombie::Attack(int t){
+    if(!IsLive())return;
+    int flag=0;
+    int bomb=generateRandomNumber()%10;
+    if(bomb==1){
+        QList<QGraphicsItem*> list=collidingItems();
+        Object* tmp=nullptr;
+        for(int i=0;i<list.size();i++){
+            tmp=qgraphicsitem_cast<Object*>(list[i]);
+            if(tmp->IsPlant()){//如果是植物的话就攻击它
+                tmp->IsAttacked(100000);
+            }
+        }
+        IsAttacked(100000);
+        Burn();
+        return;
+    }
+    QList<QGraphicsItem*> list=collidingItems();
+    Object* tmp=nullptr;
+    for(int i=0;i<list.size();i++){
+        tmp=qgraphicsitem_cast<Object*>(list[i]);
+        if(tmp->IsPlant()){//如果是植物的话就攻击它
+            flag=1;
+            if(change==0&&tmp->GetType()==Garlic_t){change=CheckRow();return;}
+            break;
+        }
+    }
+    if(flag==1)isatking=true;
+    else isatking=false;
+    if(t%2000==0&&isatking){
+        tmp->IsAttacked(atk);
+    }
+}
+
+void ClownZombie::CheckAndRemove(){
+    if(!IsLive()){
+        if(burned){
+            SetWalkMovie(":/resource/baozha.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/Die.gif");
+            SetDeadMovie(":/resource/ZombieHead.gif");
+        }
+        if(PlayMovieEnd1()){
+            ClearSelf();
+        }
+    }
+    else{
+        if(myhp>myhpmax/2){
+            if(!isatking)SetWalkMovie(":/resource/Walk.gif");
+            else SetWalkMovie(":/resource/Attack.gif");
+        }
+        else{
+            if(!isatking)SetWalkMovie(":/resource/LostHead.gif");
+            else SetWalkMovie(":/resource/LostHeadAttack.gif");
+        }
+    }
+}
+
+void ClownZombie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->scale(1.3, 1.3);
+    Zombie::paint(painter,option,widget);
+}
+
+
+
+
+CastZombie::CastZombie(int xx,int yy)
+    :Zombie(xx,yy,Hp_CastZombie,CastZombie_t)
+{
+    atk=NormalZombie_ATK;
+}
+
+void CastZombie::advance(int phase) {
+    if(phase==0){//预备更新
+        CheckAndRemove();
+        Move();
+        Attack(t);
+
+    }
+    else{
+        this->QGraphicsItem::update();
+    }
+}
+void CastZombie::Attack(int t){
+    if(!IsLive())return;
+    int flag=0;
+    QList<QGraphicsItem*> list=collidingItems();
+    Object* tmp=nullptr;
+    for(int i=0;i<list.size();i++){
+        tmp=qgraphicsitem_cast<Object*>(list[i]);
+        if(tmp->IsPlant()){//如果是植物的话就攻击它
+            tmp->IsAttacked(10000);
+        }
+    }
+    /*if(flag==1)isatking=true;
+    else isatking=false;
+    if(t%2000==0&&isatking){
+        tmp->IsAttacked(atk);
+    }*/
+}
+
+
+void CastZombie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->scale(2.0, 2.0);
+    Zombie::paint(painter,option,widget);
+}
+
+
+void CastZombie::CheckAndRemove(){
+    if(!IsLive()){
+        if(burned){
+            SetWalkMovie(":/resource/carBoomDie.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/cardie.gif");
+            //SetDeadMovie(":/resource/ZombieHead.gif");
+        }
+        if(PlayMovieEnd1()){
+            ClearSelf();
+        }
+    }
+    else{
+        if(myhp>2*myhpmax/3){
+            SetWalkMovie(":/resource/car1.gif");
+        }
+        else if(myhp>myhpmax/3){
+            SetWalkMovie(":/resource/car2.gif");
+        }
+        else{
+            SetWalkMovie(":/resource/car3.gif");
+        }
+    }
+}
+
+
 
 

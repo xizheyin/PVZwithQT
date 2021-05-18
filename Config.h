@@ -28,21 +28,21 @@ const int Hp_Cherry = 20;
 //大蒜
 const int Hp_Garlic = 20;
 //南瓜
-const int Hp_Pumpkin = 120;
+const int Hp_Pumpkin = 60;
 
 
 //普通僵尸基础生命
-const int Hp_NormalZombie = 10;
+const int Hp_NormalZombie = 30;
 //路障僵尸基础生命
 const int Hp_BarricadesZombie = 30;
 //读报僵尸基础生命
-const int Hp_PaperZombie = 20;
+const int Hp_PaperZombie = 30;
 //撑杆僵尸基础生命
-const int Hp_PolesZombie = 20;
+const int Hp_PolesZombie = 30;
 //小丑僵尸基础生命
-const int Hp_ClownZombie = 20;
+const int Hp_ClownZombie = 30;
 //投石僵尸基础生命
-const int Hp_CastZombie = 20;
+const int Hp_CastZombie = 30;
 
 
 //豌豆射手攻击gap
@@ -57,11 +57,11 @@ const int TIME_GAP_ICESHOOTER_ATTACK = 4;
 const int Cherry_ColdTime = 3000;
 
 
-const int NormalZombie_ATK=5;
+const int NormalZombie_ATK=10;
 
 
 
-const int NormalBullet_Mvgap=40;
+const int NormalBullet_Mvgap=30;
 const int NormalBullet_Speed=6;
 
 
@@ -88,10 +88,10 @@ enum{
     NormalZombie_t=11,
     BarricadesZombie_t=12,
     PaperZombie_t=13,
-    CastZombie_t=14,
+    PolesZombie_t=14,
     ClownZombie_t=15,
+    CastZombie_t=16,
 
-    PolesZombie_t=16,
 
     Shop_t=30,
 

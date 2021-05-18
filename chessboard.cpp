@@ -47,7 +47,7 @@ void ChessBoard::dropEvent(QGraphicsSceneDragDropEvent *event) {
     QList<QGraphicsItem*> list = scene()->items(QPoint(curx, cury));
     for(int i=0;i<list.size();i++){
         Object* obj=qgraphicsitem_cast<Object*>(list[i]);
-        if(obj->IsPlant()&&obj->GetType()!=Pumpkin_t){
+        if(ittype!=Pumpkin_t&&obj->IsPlant()&&obj->GetType()!=Pumpkin_t){
             //看看是不是南瓜头
             canput=false;
         }

@@ -17,8 +17,8 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0)override;
     bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
     QRectF boundingRect() const override;
-    bool Burn(){burned=true;}
-    void Move();
+    void Burn(){burned=true;}
+    virtual void Move();
     void Ice(){if(!iced){iced=true;speed=1;}}
     int CheckRow(){
         if(y()==130)return 100;
@@ -73,8 +73,52 @@ public:
 
 };
 
+class PolesZombie:public Zombie
+{
+    Q_OBJECT
+public:
+    PolesZombie(int xx,int yy);
+    void advance(int phase) override;
+    void Move()override;
+    void Attack(int t);
+    void CheckAndRemove()override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0)override;
+    QRectF boundingRect() const override{
+        return QRectF(-50,-50,100,90);
+    }
 
+private:
+    int jmp;
+    bool j1;
+};
 
+class ClownZombie:public Zombie
+{
+    Q_OBJECT
+public:
+    ClownZombie(int xx,int yy);
+    void advance(int phase) override;
+
+    void Attack(int t);
+    void CheckAndRemove()override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0)override;
+    QRectF boundingRect() const override{
+        return QRectF(-50,-50,100,90);
+    }
+
+};
+
+class CastZombie:public Zombie
+{
+    Q_OBJECT
+public:
+    CastZombie(int xx,int yy);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget=0)override;
+    void advance(int phase) override;
+    void Attack(int t);
+    void CheckAndRemove()override;
+
+};
 
 
 

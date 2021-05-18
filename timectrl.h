@@ -23,6 +23,7 @@ private:
     void CreateClownZombie(int yy);
     void CreatePaperZombie(int yy);
     void CreatePolesZombie(int yy);
+    void CreateCastZombie(int yy);
 
     long long int time;
     QGraphicsScene* scene;

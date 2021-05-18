@@ -51,7 +51,7 @@ void PeaShooter::Attack(int t){
         QList<QGraphicsItem*> list=collidingItems();
         for(int i=0;i<list.size();i++){
             if(qgraphicsitem_cast<Object*>(list[i])->IsZombie()){
-                Bullet* blt=new Bullet(this->XX+22,this->YY-15,normal_t);
+                Bullet* blt=new Bullet(this->XX+20,this->YY-15,normal_t);
                 scene()->addItem(blt);
             }
         }
@@ -408,5 +408,5 @@ void Pumpkin::CheckAndRemove(){
 }
 
 QRectF Pumpkin::boundingRect() const {
-    return QRectF(-35,-20,70,75);
+    return QRectF(-35,-20,75,75);
 }
