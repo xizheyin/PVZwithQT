@@ -93,7 +93,7 @@
 
 其中`MainWindow`里面承载了主要的一些组件，包括定时器，声音，棋盘（这个棋盘和控制台的棋盘类似，但它仅仅是逻辑上的棋盘，后面我会说明），商店，购买卡片，场景......
 
-![img](file:///C:\Users\86183\Documents\Tencent Files\1263522794\Image\C2C\9516AE9FECEFDBCE60206B96608FA9F1.png)
+![img](markdown/UML.png)
 
 ## 2.主要的游戏相关的类
 
@@ -222,7 +222,7 @@ bool Plant::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode m
 
 它的外接矩形基本和我们的地图重合，如下图所示，就是绿色的那个部分
 
-![image-20210519172518106](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519172518106.png)
+<img src="markdown/bg.png" alt="image-20210519172518106" style="zoom:80%;" />
 
 这个的鼠标拖放事件主要跟放置植物和铲除植物有关，当我从`Card`里面产生一个拖动时间，我通过`QMimeData`类来存放有关的信息，当我在棋盘上面获得一个拖放时间的时候，我读取`event`里面存储的相关信息，
 
@@ -259,7 +259,7 @@ int CurY(int y){
 
 卡片类就是商店上面的卡片，我可以拖动卡片然后在上面的棋盘上面放置植物，这里面有关于拖动的两个函数就是两个鼠标事件，当我点击了其中一个卡片就会生成一个拖动事件，我拖动的话会用`MimeData`携带一些信息
 
-![image-20210519183141465](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519183141465.png)
+![image-20210519183141465](markdown/shop.png)
 
 我们需要重载下面的两个函数
 
@@ -398,7 +398,7 @@ void Bullet::Move(){
 }
 ```
 
-![image-20210519200407011](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519200407011.png)
+![image-20210519200407011](markdown/car.png)
 
 推车的本质就是子弹，所以我用推车继承了子弹类，不过重载了移动函数，只有在第一次碰到僵尸的时候他会以一个很快的速度移动，并且杀死一路上的所有僵尸！
 
@@ -421,7 +421,7 @@ PeaShooter::PeaShooter(int xx,int yy)
 
 ### 豌豆射手
 
-![image-20210519191630738](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519191630738.png)
+<img src="markdown/wandou.png" alt="image-20210519191630738" style="zoom:67%;" />
 
 豌豆射手的具体逻辑就是在对应的时间间隔发射子弹，注意，这里我需要用到之前`Plant`类的碰撞检测函数
 
@@ -455,7 +455,7 @@ void PeaShooter::advance(int phase){
 
 ### 向日葵
 
-![image-20210519191700948](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519191700948.png)
+![image-20210519191700948](markdown/hua.png)
 
 向日葵的攻击函数就是在特定时间产生阳光
 
@@ -468,13 +468,13 @@ if(t%SunFlower_Sungap==0){
 
 ### 双发射手
 
-![image-20210519191801553](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519191801553.png)
+<img src="markdown/shuangfa.png" alt="image-20210519191801553" style="zoom:50%;" />
 
 这个逻辑跟豌豆射手类似，只不过是连续发射两发子弹！
 
 ### 寒冰射手
 
-![image-20210519191838650](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519191838650.png)
+<img src="markdown/hanbing.png" alt="image-20210519191838650" style="zoom:50%;" />
 
 寒冰射手的攻击函数会发射一枚寒冰子弹，子弹类的属性会在构造函数里面设置，它具体的属性会根据这个`fun`来设置！
 
@@ -490,17 +490,17 @@ if(t%SunFlower_Sungap==0){
 
 ### 坚果墙
 
-![image-20210519191946907](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519191946907.png)
+![image-20210519191946907](markdown/jianguo.png)
 
 坚果墙是抵御僵尸很有利的植物，我为它设置了**三种形态**，对应于不同的生命值，坚果墙的动画是不同的，分别对应于下面三个动画！
 
-![image-20210519192135946](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519192135946.png)
+<img src="markdown/3jianguo.png" alt="image-20210519192135946" style="zoom:80%;" />
 
 ### 高坚果
 
 高坚果比坚果墙要生命值更高，并且可以抵挡撑杆跳僵尸的跳跃！同时，**高坚果也对应着三种不同的状态**
 
-![image-20210519192655586](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519192655586.png)
+<img src="markdown/gao.png" alt="image-20210519192655586" style="zoom:80%;" />
 
 ### 樱桃炸弹
 
@@ -520,7 +520,7 @@ if(t%SunFlower_Sungap==0){
 
 同样，**大蒜我也设置了三种不同的形态**。
 
-![image-20210519193129995](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519193129995.png)
+<img src="markdown/da.png" alt="image-20210519193129995" style="zoom:67%;" />
 
 值得注意的是，在僵尸的攻击函数里面，我进行了一些逻辑上的设置，如果攻击的目标是大蒜，那么僵尸会以每次更新20个单位来移动，也就是说，进行五次更新之后他会移动到相邻行，这样**防止僵尸“瞬移”，增加视觉上舒适的体验**！
 
@@ -543,7 +543,7 @@ if(t%SunFlower_Sungap==0){
 
 不出意外，南瓜头也被我设置成了三种不同的形态
 
-![image-20210519192854407](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519192854407.png)
+<img src="markdown/nan.png" alt="image-20210519192854407" style="zoom:67%;" />
 
 有一点，在南瓜头种植的时候，我特意进行了一些判断，来保证植物和南瓜头可以在一个地块里面共生
 
@@ -560,7 +560,7 @@ if(t%SunFlower_Sungap==0){
 
 土豆地雷的特点就是：先埋入地下，过一会之后长出来遇到僵尸爆炸！逻辑上跟樱桃类似~
 
-![image-20210519194230059](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519194230059.png)
+<img src="markdown/tudou.png" alt="image-20210519194230059" style="zoom:67%;" />
 
 爆炸的时候也有特效
 
@@ -570,7 +570,7 @@ if(t%SunFlower_Sungap==0){
 
 对于僵尸的特效设置，我设置了几种不同的状态
 
-![image-20210519195121284](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519195121284.png)
+<img src="markdown/chi.png" alt="image-20210519195121284" style="zoom:67%;" />
 
 走路的时候播放走路的动画；攻击的时候播放攻击的动画；死掉的时候分为两种情况：
 
@@ -606,11 +606,11 @@ void NormalZombie::CheckAndRemove(){
 
 读报僵尸在报纸被打掉的时候会进行加速！
 
-![image-20210519195158974](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519195158974.png)
+<img src="markdown/si.png" alt="image-20210519195158974" style="zoom:67%;" />
 
 ### 撑杆跳僵尸
 
-![image-20210519195913744](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519195913744.png)
+<img src="markdown//tiao.png" alt="image-20210519195913744" style="zoom:67%;" />
 
 撑杆跳僵尸的亮点是它在跳过植物的时候产生特效，跟原版几乎一模一样。
 
@@ -660,13 +660,13 @@ void PolesZombie::Move(){
 
 ### 小丑僵尸
 
-![image-20210519195849407](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519195849407.png)
+<img src="markdown/chou.png" alt="image-20210519195849407" style="zoom:67%;" />
 
 小丑僵尸的头被打掉之后可以继续走，并且有一定概率自爆，自爆的时候会炸死周围的植物！
 
 ### 投掷僵尸
 
-![image-20210519200202445](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519200202445.png)
+<img src="markdown/bingche.png" alt="image-20210519200202445" style="zoom:80%;" />
 
 因为没有找到投篮僵尸的资源，我利用兵车僵尸的资源来代替，同时没有找到篮球的资源，所以我直接把投掷僵尸设置成了推土车，所到之处没有植物能够挡住它，但是可以通过樱桃炸弹直接炸死！
 
@@ -684,7 +684,7 @@ void PolesZombie::Move(){
 
 # 四.最后的效果
 
-![image-20210519202110504](C:\Users\86183\AppData\Roaming\Typora\typora-user-images\image-20210519202110504.png)
+![image-20210519202110504](markdown/xiaoguo.png)
 
 # 五.总结与感悟
 
