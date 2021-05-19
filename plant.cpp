@@ -179,16 +179,17 @@ void Cherry::Attack(int t){
 }
 
 void Cherry::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->scale(0.6, 0.58);
+    //painter->scale(0.6, 0.58);
     Plant::paint(painter,option,widget);
 }
 
 
 QRectF Cherry::boundingRect() const{
-    return QRectF(-3*35,-3*35,3*70,3*70);
+    return QRectF(-35,-35,70,70);
 }
 bool Cherry::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const {
-    this->QGraphicsItem::collidesWithItem(other,mode);
+    return abs(x()-other->x())<100&&abs(y()-other->y())<=100;
+    //this->QGraphicsItem::collidesWithItem(other,mode);
 }
 
 void Cherry::CheckAndRemove(){
@@ -208,7 +209,7 @@ void Cherry::CheckAndRemove(){
 
 Potato::Potato(int xx,int yy):Plant(xx,yy,Hp_Cherry,Cherry_t)
 {
-    coldtime=10000;
+    coldtime=5000;
     qDebug()<<"樱桃构造函数";
 }
 void Potato::advance(int phase){
@@ -222,7 +223,7 @@ void Potato::advance(int phase){
     }
 }
 void Potato::Attack(int t){
-    if(coldtime>0)return;
+    if(coldtime>2500)return;
     QList<QGraphicsItem*> list=collidingItems();
     Object* tmp=nullptr;
     for(int i=0;i<list.size();i++){
@@ -237,7 +238,7 @@ void Potato::Attack(int t){
     return;
 }
 QRectF Potato::boundingRect() const{
-    return QRectF(-30,-30,60,60);
+    return QRectF(-20,-20,40,40);
 }
 bool Potato::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const {
     return y()==other->y()&&abs(x()-other->x())<45;
@@ -252,7 +253,7 @@ void Potato::CheckAndRemove(){
         }
     }
     else{
-        if(coldtime>5000){
+        if(coldtime>2500){
             SetWalkMovie(":/resource/PotatoMine1.gif");
         }
         else

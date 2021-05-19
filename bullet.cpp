@@ -68,11 +68,79 @@ void Bullet::Attack(){
 }
 
 void Bullet::Move(){
+
     if(t%NormalBullet_Mvgap==0)
         SetX(GetX()+NormalBullet_Speed);
 }
 
 void Bullet::CheckAndRemove(){
     Object::CheckAndRemove();
-    if(y()>800)scene()->removeItem(this);
+    if(x()>1100)scene()->removeItem(this);
+}
+
+
+Car::Car(int xx,int yy):Bullet(xx,yy,car_t)
+{
+    setZValue(4);
+    img = new QPixmap(":/resource/car.png");
+    ice=false;
+    atk=10000;
+}
+
+
+void Car::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    QRect rect=QRect(-10,-10,20,20);
+    painter->scale(3.0, 3.0);
+    if (img)painter->drawPixmap(rect, *img);
+}
+
+
+bool Car::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
+    if(abs(x()-other->x())<30&&abs(y()-other->y())<30){
+        return true;
+    }
+    else return false;
+}
+
+QRectF Car::boundingRect() const{
+    return QRectF(-30,-30,60,60);
+}
+
+void Car::advance(int phase){
+    if(phase==0){
+
+        Attack();
+        CheckAndRemove();
+        Move();
+    }
+    else{
+        update();
+    }
+}
+
+
+void Car::Attack(){
+    QList<QGraphicsItem*> list = collidingItems();
+    for(int i=0;i<list.size();i++) {
+        Object* tmp =qgraphicsitem_cast<Object*> (list[i]);
+        if (tmp->IsZombie()) {
+            tmp->IsAttacked(atk);
+            state=1;
+            //this->IsAttacked(atk);
+            //tmp->IsAttacked(10000);
+            qDebug()<< "子弹攻击敌人!";
+            return;
+        }
+    }
+}
+
+void Car::Move(){
+
+    if(state==1&&t%NormalBullet_Mvgap==0)
+        SetX(GetX()+NormalBullet_Speed);
+}
+
+void Car::CheckAndRemove(){
+    //Object::CheckAndRemove();
+    if(x()>1100)scene()->removeItem(this);
 }

@@ -37,7 +37,7 @@ QRectF Zombie::boundingRect() const{
 
 void Zombie::Move(){
     if(!IsLive())return;
-    if(t%100==0){
+    if(t%Zombie_Mvgap==0){
         if(change!=0){
             if(change>0){
                 SetY(GetY()+step);
@@ -348,7 +348,7 @@ void PolesZombie::CheckAndRemove(){
 }
 
 void PolesZombie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->scale(1.3, 1.3);
+    painter->scale(1.5, 1.5);
     Zombie::paint(painter,option,widget);
 }
 

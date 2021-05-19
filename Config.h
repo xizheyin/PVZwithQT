@@ -54,16 +54,18 @@ const int TIME_GAP_DOUBLESHOOTER_ATTACK = 4;
 //寒冰射手
 const int TIME_GAP_ICESHOOTER_ATTACK = 4;
 //Cherry的攻击倒计时
-const int Cherry_ColdTime = 3000;
+const int Cherry_ColdTime = 1000;
 
 
 const int NormalZombie_ATK=10;
 
 
 
-const int NormalBullet_Mvgap=30;
+const int NormalBullet_Mvgap=20;
 const int NormalBullet_Speed=6;
 
+
+const int Zombie_Mvgap=40;
 
 struct Location{
     int x,y;

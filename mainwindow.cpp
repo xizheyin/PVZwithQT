@@ -9,6 +9,8 @@
 #include<QTimer>
 #include<QMediaPlayer>
 #include<QDebug>
+#include"bullet.h"
+#include"shovel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -49,6 +51,19 @@ MainWindow::MainWindow(QWidget *parent)
     startSound=new QSound(":/resource/Grazy Dave.wav");  //创建一个音乐播放器
     startSound->play();
 
+    Car* car1=new Car(240,130);
+    Car* car2=new Car(240,230);
+    Car* car3=new Car(240,330);
+    Car* car4=new Car(240,430);
+    Car* car5=new Car(240,530);
+    scene->addItem(car1);
+    scene->addItem(car2);
+    scene->addItem(car3);
+    scene->addItem(car4);
+    scene->addItem(car5);
+
+    shovel* sh=new shovel();
+    scene->addItem(sh);
 
     connect(timer,&QTimer::timeout,timectrl,&TimeCtrl::Update);
     connect(timer,&QTimer::timeout,scene,&QGraphicsScene::advance);

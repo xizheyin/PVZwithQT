@@ -22,6 +22,7 @@ SOURCES += \
     object.cpp \
     plant.cpp \
     shop.cpp \
+    shovel.cpp \
     sun.cpp \
     timectrl.cpp \
     zombie.cpp
@@ -35,6 +36,7 @@ HEADERS += \
     object.h \
     plant.h \
     shop.h \
+    shovel.h \
     sun.h \
     timectrl.h \
     zombie.h

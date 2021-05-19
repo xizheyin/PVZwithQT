@@ -6,7 +6,7 @@
 Sun::Sun(int xx,int yy)
     :Plant(xx,yy,10000,Sun_t)
 {
-
+    setZValue(20);
 }
 void Sun::advance(int phase){
     SetWalkMovie(":/resource/Sun.gif");

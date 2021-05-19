@@ -92,6 +92,11 @@ public:
     QRectF boundingRect() const override;
     bool collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const override;
     void CheckAndRemove()override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)override{
+        painter->scale(1.5, 1.5);
+        Plant::paint(painter,option,widget);
+    }
+
 private:
     int coldtime;
 };

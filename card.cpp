@@ -60,3 +60,5 @@ void Card::mousePressEvent(QGraphicsSceneMouseEvent *event){
 }
 
 
+
+

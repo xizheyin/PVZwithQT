@@ -37,11 +37,28 @@ void ChessBoard::dragMoveEvent(QGraphicsSceneDragDropEvent *event) {
 void ChessBoard::dropEvent(QGraphicsSceneDragDropEvent *event) {
     qDebug()<<"放植物";
     const QMimeData* mdata=event->mimeData();
+    if(event->mimeData()->text()==QString("remove")){
+        QPointF pos = mapToScene(event->pos());
+        int curx=CurX(pos.x());
+        int cury=CurY(pos.y());
+        QList<QGraphicsItem*> list = scene()->items(QPoint(curx, cury));
+        for(int i=0;i<list.size();i++){
+            Object* obj=qgraphicsitem_cast<Object*>(list[i]);
+            if(obj->IsPlant()){
+                //是植物就拿走
+                scene()->removeItem(obj);
+                break;
+            }
+
+        }
+        return;
+    }
+
     int ittype = event->mimeData()->text().toInt();
     QPointF pos = mapToScene(event->pos());
     int curx=CurX(pos.x());
     int cury=CurY(pos.y());
-    qDebug()<<curx<<" "<<cury;
+    //qDebug()<<curx<<" "<<cury;
     bool canput=true;
     bool pro=false;
     QList<QGraphicsItem*> list = scene()->items(QPoint(curx, cury));

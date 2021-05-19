@@ -16,7 +16,6 @@
         <file>resource/FootballZombieAttack.gif</file>
         <file>resource/FootballZombieDie.gif</file>
         <file>resource/FootballZombieWalk.gif</file>
-        <file>resource/LawnMower.png</file>
         <file>resource/NewspaperZombie1.gif</file>
         <file>resource/NewspaperZombie2.gif</file>
         <file>resource/NewspaperZombieAttack1.gif</file>
@@ -93,5 +92,6 @@
         <file>resource/cardie.gif</file>
         <file>resource/ice.png</file>
         <file>resource/ice_cap.png</file>
+        <file>resource/car.png</file>
     </qresource>
 </RCC>
