@@ -10,7 +10,7 @@
 
 ## 写代码前的探索
 
-在之前的两个阶段，我们一直写的都是控制台应用，所以说主要的关注点放在游戏逻辑的控制上面，然而再本阶段我们需要进行图形化界面的设计。我选择了Qt作为我的开发工具。在经过一段时间的学习之后，我了解到了Qt的鼠标事件，绘图事件等有助于图形化开发的工具。我可以单纯地选择把我原来的代码上面套一个壳子，也就是给僵尸植物啥的加一个图片，加一个背景就好，用Qt的定时器来模拟`while`循环，但是这样会导致做出来的效果比较难看，所以我开始探索Qt有没有什么比较牛逼的框架。
+在之前的两个阶段，我们一直写的都是控制台应用，所以说主要的关注点放在游戏逻辑的控制上面，然而在本阶段我们需要进行图形化界面的设计。我选择了Qt作为我的开发工具。在经过一段时间的学习之后，我了解到了Qt的鼠标事件，绘图事件等有助于图形化开发的工具。我可以单纯地选择把我原来的代码上面套一个壳子，也就是给僵尸植物啥的加一个图片，加一个背景就好，用Qt的定时器来模拟`while`循环，但是这样会导致做出来的效果比较难看，所以我开始探索Qt有没有什么比较牛逼的框架。
 
 在经过一段时间的探索之后，我发现了Qt有两个类很强大
 
@@ -35,7 +35,7 @@
 
 #### advance(int *phase*)函数
 
-> This virtual function is called twice for all items by the [QGraphicsScene::advance](https://doc.qt.io/qt-5/qgraphicsscene.html#advance)() slot. In the first phase, all items are called with *phase* == 0, indicating that items on the scene are about to advance, and then all items are called with *phase* == 1. Reimplement this function to update your item if you need simple scene-controlled animation.
+> This virtual function is called twice for all items by the QGraphicsScene::advance slot. In the first phase, all items are called with *phase* == 0, indicating that items on the scene are about to advance, and then all items are called with *phase* == 1. Reimplement this function to update your item if you need simple scene-controlled animation.
 
 对于这个函数，官方文档的叙述如上图所示，说明了这个是一个更新函数，scene的advance函数可以调用它上面所有item的advance函数！多么方便啊，还给出了两个阶段，phase等于0的时候，我们将要进行更新，这个时候我们可以进行一些预处理，比如判断植物是不是死掉了之类的！后面呢，我们可以更新植物的图片显示，因为我们用的是gif图片，所以我们可以进行图片显示的更新！
 
@@ -179,7 +179,7 @@ public:
     }
 ```
 
-碰撞检查函数呢，主要是给豌豆类准备的，当和植物和对方在同一行，并且对方在植物的右面，就相当于碰撞，这样的话我就可以通过这个来判断是否需要发射弹了。
+碰撞检查函数呢，主要是给豌豆类准备的，当和植物和对方在同一行，并且对方在植物的右面，就相当于碰撞，这样的话我就可以通过这个来判断是否需要发射弹珠了。
 
 ```
 bool Plant::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode mode) const{
@@ -199,7 +199,7 @@ bool Plant::collidesWithItem(const QGraphicsItem *other, Qt::ItemSelectionMode m
     void Ice(){if(!iced){iced=true;speed=1;}}
 ```
 
-第一个函数和燃烧有关，当僵尸被樱桃或者土豆地雷炸死的时候，僵尸就会被烧死，那么我会根据`burned`布尔量来设置死亡的动画。
+第一个函数和燃烧有关，当僵尸被樱桃或者土豆地雷炸坏的时候，僵尸就会被烧死，那么我会根据`burned`布尔量来设置死亡的动画。
 
 第二个是僵尸移动的函数，设置为虚函数的原因是，对于一些特定的僵尸，我们需要重定义移动函数，比如撑杆跳僵尸，我需要根据跳跃的不同阶段来切换不同的`Gif`动画！
 
@@ -374,9 +374,9 @@ if(event->mimeData()->text()==QString("remove")){
     }
 ```
 
-### 弹和房门前的推车
+### 弹珠和房门前的推车
 
-弹应该有三种，一种是普通弹，一种是寒冰弹，一种是小推车（继承）
+弹珠应该有三种，一种是普通弹珠，一种是寒冰弹珠，一种是小推车（继承）
 
 初始化的时候根据种类来设置具体的属性
 
@@ -400,7 +400,7 @@ void Bullet::Move(){
 
 ![image-20210519200407011](markdown/car.png)
 
-推车的本质就是弹，所以我用推车继承了弹类，不过重载了移动函数，只有在第一次碰到僵尸的时候他会以一个很快的速度移动，并且打掉一路上的所有僵尸！
+推车的本质就是弹珠，所以我用推车继承了弹珠类，不过重载了移动函数，只有在第一次碰到僵尸的时候他会以一个很快的速度移动，并且打掉一路上的所有僵尸！
 
 ```c++
 class Car : public Bullet
@@ -423,13 +423,13 @@ PeaShooter::PeaShooter(int xx,int yy)
 
 <img src="markdown/wandou.png" alt="image-20210519191630738" style="zoom:67%;" />
 
-豌豆射手的具体逻辑就是在对应的时间间隔发射弹，注意，这里我需要用到之前`Plant`类的碰撞检测函数
+豌豆射手的具体逻辑就是在对应的时间间隔发射弹珠，注意，这里我需要用到之前`Plant`类的碰撞检测函数
 
 ```c++
 QList<QGraphicsItem*> list=collidingItems();
 ```
 
-我通过下面这个函数，得到这个时刻与我这个豌豆射手碰撞的所有的item，我可以通过遍历这个列表，如果有植物跟豌豆射手在一排并且在右边，那么豌豆射手就发射弹！注意，没有僵尸的话，它是不会发射弹的哦！
+我通过下面这个函数，得到这个时刻与我这个豌豆射手碰撞的所有的item，我可以通过遍历这个列表，如果有植物跟豌豆射手在一排并且在右边，那么豌豆射手就发射弹珠！注意，没有僵尸的话，它是不会发射弹珠的哦！
 
 ```c++
 if(qgraphicsitem_cast<Object*>(list[i])->IsZombie()){
@@ -470,13 +470,13 @@ if(t%SunFlower_Sungap==0){
 
 <img src="markdown/shuangfa.png" alt="image-20210519191801553" style="zoom:50%;" />
 
-这个逻辑跟豌豆射手类似，只不过是连续发射两发弹！
+这个逻辑跟豌豆射手类似，只不过是连续发射两发弹珠！
 
 ### 寒冰射手
 
 <img src="markdown/hanbing.png" alt="image-20210519191838650" style="zoom:50%;" />
 
-寒冰射手的攻击函数会发射一枚寒冰弹，弹类的属性会在构造函数里面设置，它具体的属性会根据这个`fun`来设置！
+寒冰射手的攻击函数会发射一枚寒冰弹珠，弹珠类的属性会在构造函数里面设置，它具体的属性会根据这个`fun`来设置！
 
 ```c++
     switch (fun) {
@@ -486,7 +486,7 @@ if(t%SunFlower_Sungap==0){
     }
 ```
 
-那么弹在攻击到敌人的时候，根据自己的类型来判断是否要冻住敌人之类...
+那么弹珠在攻击到敌人的时候，根据自己的类型来判断是否要冻住敌人之类...
 
 ### 坚果墙
 
@@ -504,7 +504,7 @@ if(t%SunFlower_Sungap==0){
 
 ### 樱桃炸弹
 
-樱桃炸弹我为它设置了一个冷却时间，当冷却时间到了的时候，它就会爆炸，注意，爆炸的时候炸死的僵尸会给他们设置成`burned`状态，这样**他们死了之后就会被设置成烧死的动画**，并且**樱桃爆炸也有动画**
+樱桃炸弹我为它设置了一个冷却时间，当冷却时间到了的时候，它就会爆炸，注意，爆炸的时候炸坏的僵尸会给他们设置成`burned`状态，这样**他们死了之后就会被设置成烧死的动画**，并且**樱桃爆炸也有动画**
 
 ```c++
  for(int i=0;i<list.size();i++){
@@ -662,13 +662,13 @@ void PolesZombie::Move(){
 
 <img src="markdown/chou.png" alt="image-20210519195849407" style="zoom:67%;" />
 
-小丑僵尸的头被打掉之后可以继续走，并且有一定概率自爆，自爆的时候会炸死周围的植物！
+小丑僵尸的头被打掉之后可以继续走，并且有一定概率自爆，自爆的时候会炸坏周围的植物！
 
 ### 投掷僵尸
 
 <img src="markdown/bingche.png" alt="image-20210519200202445" style="zoom:80%;" />
 
-因为没有找到投篮僵尸的资源，我利用兵车僵尸的资源来代替，同时没有找到篮球的资源，所以我直接把投掷僵尸设置成了推土车，所到之处没有植物能够挡住它，但是可以通过樱桃炸弹直接炸死！
+因为没有找到投篮僵尸的资源，我利用兵车僵尸的资源来代替，同时没有找到篮球的资源，所以我直接把投掷僵尸设置成了推土车，所到之处没有植物能够挡住它，但是可以通过樱桃炸弹直接炸坏！
 
 推土车的动画也很丰富，根据汽车的破坏程度有三种特效，最后死亡镜头是汽车爆炸！
 
